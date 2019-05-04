@@ -13,19 +13,28 @@ class MyMap extends React.Component {
     }
 
     render () {
-        return (<Map
-                    style="mapbox://styles/mapbox/streets-v9"
-                    containerStyle={{
-                        height: "100vh",
-                        width: "100vw"
-                    }}>
-                    <Layer
-                        type="symbol"
-                        id="marker"
-                        layout={{ "icon-image": "marker-15" }}>
-                        <Feature coordinates={[-0.481747846041145, 51.3233379650232]}/>
-                    </Layer>
-                </Map>);
+        const bounds = [
+            [-75.285189, 39.880749], // Southwest coordinates
+            [-74.899586, 40.106780]  // Northeast coordinates
+        ];
+        return (<div className="map">
+            <Map
+                style="mapbox://styles/mapbox/streets-v9"
+                center={[-75.165222, 39.952583]}
+                containerStyle={{
+                    height: "100vh",
+                    width: "100vw"
+                }}
+                maxBounds={bounds}
+                zoom={[13]}>
+                <Layer
+                    type="symbol"
+                    id="marker"
+                    layout={{ "icon-image": "marker-15" }}>
+                    <Feature />
+                </Layer>
+            </Map>
+        </div>);
     }
 }
 
