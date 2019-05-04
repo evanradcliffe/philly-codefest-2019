@@ -14,18 +14,42 @@ class MyMap extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: props.name ? props.name : "Default name"
+            name: props.name ? props.name : "Default name",
+            data: []
         };
     }
 
-    componentDidMount() {
+    fetchCrime() {
         $.get("https://phl.carto.com/api/v2/sql?q=SELECT * FROM incidents_part1_part2 where text_general_code = 'Homicide - Criminal'")
-            .done((dat) => {
-                console.log(dat.rows.slice(0, 3));
-                let blah = dat.rows.slice(0, 3).map((x => {
-
-                }));
+            .done((data) => {
+                let parsedData = data.rows;
+                var returnList = [];
+                for (let i = 0; i < parsedData.length; i++) {
+                    returnList.push({
+                        "type": "Feature",
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [parsedData[i].point_x, parsedData[i].point_y]
+                        },
+                        "properties": {
+                            "title": "Mapbox DC",
+                            "marker-symbol": "monument"
+                        }
+                    });
+                }
+                this.setState({data: returnList});
+                console.log(parsedData);
+                // this.setState({data: data});
             });
+    }
+
+    fetchProperty() {
+        //
+    }
+
+    componentDidMount() {
+        this.fetchCrime();
+        this.fetchProperty();
     }
 
     onZoomEnd = (map, event) => {
@@ -41,15 +65,8 @@ class MyMap extends React.Component {
         const data = {
             "type": "geojson",
             "data": {
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [-75.165221, 39.952584]
-                },
-                "properties": {
-                    "title": "Mapbox DC",
-                    "marker-symbol": "monument"
-                }
+                "type": "FeatureCollection",
+                "features": this.state.data
             }
         };
         return (<div className="map">
