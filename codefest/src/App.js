@@ -6,7 +6,10 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <MyMap/>
+        <div>
+          <p>asdasd</p>
+          <MyMap/>
+        </div>
       </header>
     </div>
   );
