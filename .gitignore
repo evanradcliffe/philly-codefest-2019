@@ -6,6 +6,7 @@
 codefest/.idea/
 *.iml
 node_modules/
+creds.js
 
 # dependencies
 /node_modules
