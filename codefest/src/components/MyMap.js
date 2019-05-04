@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
+import {ZoomControl} from "react-mapbox-gl/lib/zoom-control";
 
 const Map = ReactMapboxGl({accessToken: "YOUR_API_KEY"});
 
@@ -30,8 +31,8 @@ class MyMap extends React.Component {
                 style="mapbox://styles/emr76/cjv9us5lc187s1fppilu4kvwj"
                 center={centerLocation}
                 containerStyle={{
-                    height: "100vh",
-                    width: "100vw"
+                    height: "50vh",
+                    width: "50vw"
                 }}
                 maxBounds={bounds}
                 zoom={[13]}
