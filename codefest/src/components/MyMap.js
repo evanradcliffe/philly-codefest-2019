@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactMapboxGl, {Layer, Feature, Source} from "react-mapbox-gl";
+import ReactMapboxGl, {Layer, Source} from "react-mapbox-gl";
 import {access_keys} from '../creds';
 
 const $ = require("jquery");
@@ -16,14 +16,17 @@ class MyMap extends React.Component {
         this.state = {
             name: props.name ? props.name : "Default name",
             data: [],
-            year: 2017
+            year: this.props.year
         };
     }
 
     fetchCrime() {
         $.get("https://phl.carto.com/api/v2/sql?q=SELECT * FROM incidents_part1_part2 where text_general_code = 'Homicide - Criminal'")
             .done((data) => {
-                let parsedData = data.rows;
+                let parsedData = data.rows
+                    .filter((item) => {
+                        return item.dispatch_date.includes(this.state.year);
+                });
                 var returnList = [];
                 for (let i = 0; i < parsedData.length; i++) {
                     returnList.push({
@@ -46,14 +49,20 @@ class MyMap extends React.Component {
         //
     }
 
-    componentDidMount() {
+    componentWillReceiveProps(nextProps, nextContext) {
+        this.setState({year: nextProps.year});
         this.fetchCrime();
         this.fetchProperty();
     }
 
+    // componentDidMount() {
+    //     this.fetchCrime();
+    //     this.fetchProperty();
+    // }
+
     onZoomEnd = (map, event) => {
-        console.log(map);
-        console.log(event);
+        // console.log(map);
+        // console.log(event);
     };
 
     render () {

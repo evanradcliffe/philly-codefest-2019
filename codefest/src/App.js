@@ -1,16 +1,12 @@
 import React from 'react';
 import './App.css';
-import MyMap from './components/MyMap';
-import Slider from './components/Slider';
+import Info from "./components/Info";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <div>
-          <Slider/>
-          <MyMap/>
-        </div>
+        <Info />
       </header>
     </div>
   );
