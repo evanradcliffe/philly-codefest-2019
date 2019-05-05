@@ -13,7 +13,8 @@ class MyMap extends React.Component {
         super(props);
         this.state = {
             name: props.name ? props.name : "Default name",
-            data: []
+            data: [],
+            year: 2017
         };
     }
 
@@ -36,8 +37,6 @@ class MyMap extends React.Component {
                     });
                 }
                 this.setState({data: returnList});
-                console.log(parsedData);
-                // this.setState({data: data});
             });
     }
 
@@ -83,7 +82,11 @@ class MyMap extends React.Component {
                     id="geojsonsrc"
                     geoJsonSource={data}
                 />
-                <Layer type="circle" id="layer_id" sourceId="geojsonsrc" />
+                <Layer
+                    id="layer_id"
+                    type="circle"
+                    sourceId="geojsonsrc"
+                    layout={{visibility: 'visible'}}/>
             </Map>
         </div>);
     }

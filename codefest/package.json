@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@mobiscroll/react": "https://npm.mobiscroll.com/@mobiscroll/react-trial/-/react-trial-4.6.3.tgz",
     "react": "^16.8.6",
+    "react-compound-slider": "^1.2.2",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.0",
-    "react-mapbox-gl": "latest"
+    "react-mapbox-gl": "latest",
+    "react-scripts": "3.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

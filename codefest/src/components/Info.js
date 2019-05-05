@@ -1,0 +1,1 @@
+// TODO make class for any text we want to explain gentrification or our app to the users
