@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactMapboxGl, {Layer, Feature, Source} from "react-mapbox-gl";
+import ReactMapboxGl, {Layer, Source} from "react-mapbox-gl";
 import {access_keys} from '../creds';
 
 const $ = require("jquery");
@@ -16,7 +16,8 @@ class MyMap extends React.Component {
         this.state = {
             name: props.name ? props.name : "Default name",
             data: [],
-            year: 2017
+            year: this.props.year,
+            zoom: [13]
         };
     }
 
@@ -25,7 +26,10 @@ class MyMap extends React.Component {
         //Should have different buttons for different crimes
         $.get("https://phl.carto.com/api/v2/sql?q=SELECT * FROM incidents_part1_part2 where text_general_code = 'Homicide - Criminal'")
             .done((data) => {
-                let parsedData = data.rows;
+                let parsedData = data.rows
+                    .filter((item) => {
+                        return item.dispatch_date.includes(this.state.year);
+                });
                 var returnList = [];
                 for (let i = 0; i < parsedData.length; i++) {
                     returnList.push({
@@ -80,14 +84,19 @@ class MyMap extends React.Component {
 
     }
 
-    componentDidMount() {
+    componentWillReceiveProps(nextProps, nextContext) {
+        this.setState({year: nextProps.year});
         this.fetchCrime();
         this.fetchProperty("2017");
     }
 
+    // componentDidMount() {
+    //     this.fetchCrime();
+    //     this.fetchProperty();
+    // }
+
     onZoomEnd = (map, event) => {
-        console.log(map);
-        console.log(event);
+        this.setState({zoom: [map.getZoom()]});
     };
 
     render () {
@@ -111,7 +120,7 @@ class MyMap extends React.Component {
                     width: "50vw"
                 }}
                 maxBounds={bounds}
-                zoom={[13]}
+                zoom={this.state.zoom}
                 onZoomEnd={this.onZoomEnd}
             >
                 <Source
