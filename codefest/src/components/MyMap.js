@@ -16,7 +16,8 @@ class MyMap extends React.Component {
         this.state = {
             name: props.name ? props.name : "Default name",
             data: [],
-            year: this.props.year
+            year: this.props.year,
+            zoom: [13]
         };
     }
 
@@ -61,8 +62,7 @@ class MyMap extends React.Component {
     // }
 
     onZoomEnd = (map, event) => {
-        // console.log(map);
-        // console.log(event);
+        this.setState({zoom: [map.getZoom()]});
     };
 
     render () {
@@ -86,7 +86,7 @@ class MyMap extends React.Component {
                     width: "50vw"
                 }}
                 maxBounds={bounds}
-                zoom={[13]}
+                zoom={this.state.zoom}
                 onZoomEnd={this.onZoomEnd}
             >
                 <Source
