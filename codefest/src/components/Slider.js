@@ -1,6 +1,4 @@
 import React from 'react'
-import mobiscroll from "@mobiscroll/react";
-import "@mobiscroll/react/dist/css/mobiscroll.min.css";
 const $ = require("jquery");
 
 class Slider extends React.Component {
