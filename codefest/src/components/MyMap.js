@@ -1,8 +1,10 @@
 import React from 'react'
 import ReactMapboxGl, {Layer, Feature, Source} from "react-mapbox-gl";
+import {access_keys} from '../creds';
+
 const $ = require("jquery");
 
-const Map = ReactMapboxGl({accessToken: "YOUR_API_KEY"});
+const Map = ReactMapboxGl({accessToken: access_keys.mapbox_token});
 
 // Dilly dilly
 const centerLocation = [-75.165222, 39.952583];
